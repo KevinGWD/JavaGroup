@@ -1,0 +1,76 @@
+package com.example.group_project;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.*;
+
+import static java.sql.DriverManager.getConnection;
+
+public class DBUtil {
+    private static Connection connection = null;
+    private static Statement statement = null;
+
+    public static void dbConnect() throws SQLException {
+        String dbURL = "jdbc:oracle:thin:@199.212.26.208:1521:SQLD";
+        String username = "COMP214_F23_shah_19";
+        String password = "password";
+        connection =DriverManager.getConnection(dbURL, username, password);
+        System.out.println("DB is connected");
+        statement = connection.createStatement();
+
+    }
+
+    public static void dbDisConnect() throws SQLException {
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+            System.out.println("DB is disconnected");
+        }
+
+    }
+
+    public static void insert(int ownerID, String name, String address, String phone, String email, int carID, String make,
+                              String model, int carVIN, int builtYear, String type, Date date, String description,
+                              int cost) throws SQLException {
+        dbConnect();
+        String sql = "INSERT INTO OWNER VALUES ("+ownerID+", '"+name+"', '"+address+"', '"+phone+"', '"+email+"')";
+        statement.executeUpdate(sql);
+        System.out.println("1 row inserted");
+        sql = "INSERT INTO CAR VALUES ("+carID+", '"+make+"', '"+model+"', "+carVIN+", "+builtYear+", '"+type+"')";
+        statement.executeUpdate(sql);
+        System.out.println("1 row inserted");
+        sql = "INSERT INTO REPAIR (ownerid, carid, s_date, s_description, s_cost) VALUES ("+ownerID+", "+carID+", '"+date+"', '"+description+"', "+cost+")";
+        statement.executeUpdate(sql);
+        System.out.println("1 row inserted");
+        if (statement != null) statement.close();
+        dbDisConnect();
+    }
+
+
+
+    public static ResultSet query(String sql) throws SQLException {
+        dbConnect();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            String s_name = resultSet.getString("s_name");
+            int s_id = resultSet.getInt("s_id");
+            System.out.println(s_id + " , " + s_name);
+        }
+        dbDisConnect();
+        return resultSet;
+    }
+
+    public static void deleteData(String tableName, int id) throws SQLException {
+        dbConnect();
+        String sql = "DELETE FROM " + tableName + " WHERE repairid=" + id;
+        statement.executeUpdate(sql);
+        System.out.println(id + "has been deleted");
+        dbDisConnect();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        DBUtil.dbConnect();
+        deleteData("repair", 22);
+        DBUtil.dbDisConnect();
+    }
+}

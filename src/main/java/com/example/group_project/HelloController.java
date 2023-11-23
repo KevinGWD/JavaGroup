@@ -3,6 +3,8 @@ package com.example.group_project;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import java.util.List;
+import javafx.scene.control.ComboBox;
 
 public class HelloController {
     @FXML
@@ -18,19 +20,17 @@ public class HelloController {
     @FXML
     private TextField model;
     @FXML
-    private TextField biuldYear;
+    private TextField buildYear;
     @FXML
     private TextField cost;
     @FXML
-    private TextArea discription;
+    private TextArea description;
     @FXML
     private TextField email;
     @FXML
     private TextField make;
     @FXML
     private TextField carVIN;
-    @FXML
-    private ComboBox type;
     @FXML
     private DatePicker date;
     @FXML
@@ -52,9 +52,25 @@ public class HelloController {
     @FXML
     private DatePicker endDate;
     @FXML
-    private TableView displayArea;
+    private TableView<String> displayArea;
+    @FXML
+    private ComboBox<String> type;
+
+    public HelloController() {
+    }
 
 
+    public void  makeType(){  //making the ComboBox menu
+
+        String[] types ={"Sedan", "SUV", "Van", "Truck"};
+        type.getItems().removeAll();
+        type.getItems().addAll(types);
+        type.getSelectionModel().select("SUV");
+    }
+
+    public void initialize(){
+        makeType();
+    }
 
     public void addNewBtn(ActionEvent actionEvent) {
 
@@ -73,6 +89,10 @@ public class HelloController {
     }
 
     public void findByDateBtn(ActionEvent actionEvent) {
+
+    }
+
+    public void selectType(ActionEvent actionEvent) {
 
     }
 }
