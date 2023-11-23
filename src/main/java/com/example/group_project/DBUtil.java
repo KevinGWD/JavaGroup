@@ -53,11 +53,6 @@ public class DBUtil {
         CachedRowSet crs= RowSetProvider.newFactory().createCachedRowSet();
         dbConnect();
         ResultSet resultSet = statement.executeQuery(sql);
-//        while (resultSet.next()) {
-//            String s_name = resultSet.getString("s_name");
-//            int s_id = resultSet.getInt("s_id");
-//            System.out.println(s_id + " , " + s_name);
-//        }
         crs.populate(resultSet);
         dbDisConnect();
         return crs;

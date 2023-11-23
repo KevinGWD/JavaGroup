@@ -46,16 +46,6 @@ public class HelloController {
     @FXML
     private DatePicker date;
     @FXML
-    private Button addNew;
-    @FXML
-    private Button update;
-    @FXML
-    private Button findByOwner;
-    @FXML
-    private Button findByCarID;
-    @FXML
-    private Button findByDate;
-    @FXML
     private TextField queryOwnerID;
     @FXML
     private TextField queryCarID;
@@ -129,20 +119,19 @@ public class HelloController {
 
     }
 
-    public void findByOwnerIDBtn(ActionEvent actionEvent) {
-
+    public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
+        String sql="SELECT * FROM REPAIR WHERE OWNERID="+queryOwnerID.getText();
+        fillingTable(sql);
     }
 
-    public void findByCarIDBtn(ActionEvent actionEvent) {
-
+    public void findByCarIDBtn(ActionEvent actionEvent) throws SQLException {
+        String sql="SELECT * FROM REPAIR WHERE CARID="+queryCarID.getText();
+        fillingTable(sql);
     }
 
-    public void findByDateBtn(ActionEvent actionEvent) {
-
-    }
-
-    public void selectType(ActionEvent actionEvent) {
-
+    public void findByDateBtn(ActionEvent actionEvent) throws SQLException {
+        String sql="SELECT * FROM REPAIR WHERE S_DATE BETWEEN '"+startDate.getValue()+"' AND '"+endDate.getValue()+"'";
+        fillingTable(sql);
     }
 
     public void deleteBtn(ActionEvent actionEvent) throws SQLException {
@@ -153,28 +142,32 @@ public class HelloController {
         populateData();
     }
     public void populateData () throws SQLException {
-
-            ResultSet rs=DBUtil.query("SELECT * FROM REPAIR");
-            ObservableList<Repair> repairs= FXCollections.observableArrayList();
-            while (rs.next()){
-                Repair repair=new Repair(rs.getInt("REPAIRID"), rs.getInt("OWNERID"),
-                rs.getInt("CARID"), rs.getDate("S_DATE"),
-                rs.getString("S_DESCRIPTION"), rs.getInt("S_COST"));
-                repairs.add(repair);
-            }
-        System.out.println("after while");
-            repairIDColumn.setCellValueFactory(new PropertyValueFactory<>("repairID"));
-            ownerIDColumn.setCellValueFactory(new PropertyValueFactory<>("ownerID"));
-            carIDColumn.setCellValueFactory(new PropertyValueFactory<>("carID"));
-            repairDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-            repairDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-            costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-            displayArea.getItems().clear();
-            displayArea.getItems().addAll(repairs);
-            repairDateColumn.setSortType(TableColumn.SortType.ASCENDING);
-            displayArea.getSortOrder().add(repairDateColumn);
-            displayArea.sort();
+           String sql="SELECT * FROM REPAIR";
+           fillingTable(sql);
         }
+
+    public void fillingTable(String sql) throws SQLException {
+        ResultSet rs=DBUtil.query(sql);
+        ObservableList<Repair> repairs= FXCollections.observableArrayList();
+        while (rs.next()){
+            Repair repair=new Repair(rs.getInt("REPAIRID"), rs.getInt("OWNERID"),
+                    rs.getInt("CARID"), rs.getDate("S_DATE"),
+                    rs.getString("S_DESCRIPTION"), rs.getInt("S_COST"));
+            repairs.add(repair);
+        }
+        System.out.println("after while");
+        repairIDColumn.setCellValueFactory(new PropertyValueFactory<>("repairID"));
+        ownerIDColumn.setCellValueFactory(new PropertyValueFactory<>("ownerID"));
+        carIDColumn.setCellValueFactory(new PropertyValueFactory<>("carID"));
+        repairDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        repairDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        displayArea.getItems().clear();
+        displayArea.getItems().addAll(repairs);
+        repairDateColumn.setSortType(TableColumn.SortType.ASCENDING);
+        displayArea.getSortOrder().add(repairDateColumn);
+        displayArea.sort();
+    }
 
     public void initialize() throws SQLException{
         makeType();
