@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*;
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 
 import static java.sql.DriverManager.getConnection;
 
@@ -48,15 +50,17 @@ public class DBUtil {
 
 
     public static ResultSet query(String sql) throws SQLException {
+        CachedRowSet crs= RowSetProvider.newFactory().createCachedRowSet();
         dbConnect();
         ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            String s_name = resultSet.getString("s_name");
-            int s_id = resultSet.getInt("s_id");
-            System.out.println(s_id + " , " + s_name);
-        }
+//        while (resultSet.next()) {
+//            String s_name = resultSet.getString("s_name");
+//            int s_id = resultSet.getInt("s_id");
+//            System.out.println(s_id + " , " + s_name);
+//        }
+        crs.populate(resultSet);
         dbDisConnect();
-        return resultSet;
+        return crs;
     }
 
     public static void deleteData(String tableName, int id) throws SQLException {
