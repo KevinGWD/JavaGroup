@@ -74,7 +74,7 @@
             </Label>
             <DatePicker fx:id="date" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <ComboBox fx:id="type" onAction="#selectType" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <TextField fx:id="buildYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="builtYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="model" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="cost" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="make" GridPane.columnIndex="3" GridPane.rowIndex="3" />

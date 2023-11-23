@@ -30,7 +30,7 @@ public class DBUtil {
     }
 
     public static void insert(int ownerID, String name, String address, String phone, String email, int carID, String make,
-                              String model, int carVIN, int builtYear, String type, Date date, String description,
+                              String model, int carVIN, int builtYear, String type, String date, String description,
                               int cost) throws SQLException {
         dbConnect();
         String sql = "INSERT INTO OWNER VALUES ("+ownerID+", '"+name+"', '"+address+"', '"+phone+"', '"+email+"')";
@@ -45,7 +45,6 @@ public class DBUtil {
         if (statement != null) statement.close();
         dbDisConnect();
     }
-
 
 
     public static ResultSet query(String sql) throws SQLException {
@@ -68,9 +67,11 @@ public class DBUtil {
         dbDisConnect();
     }
 
-    public static void main(String[] args) throws SQLException {
-        DBUtil.dbConnect();
-        deleteData("repair", 22);
-        DBUtil.dbDisConnect();
-    }
+//    public static void main(String[] args) throws SQLException {
+//        DBUtil.dbConnect();
+//        insert(34, "Tom", "45 Blvd", "4755893849", "tom@email.com", 453, "Audi",
+//                "Q7", 897545,2023, "SUV", "14-02-25", "replace tyre",
+//        899);
+//        DBUtil.dbDisConnect();
+//   }
 }

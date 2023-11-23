@@ -3,8 +3,15 @@ package com.example.group_project;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javafx.scene.control.ComboBox;
+import javafx.util.StringConverter;
+
+import static java.lang.Integer.parseInt;
 
 public class HelloController {
     @FXML
@@ -20,7 +27,7 @@ public class HelloController {
     @FXML
     private TextField model;
     @FXML
-    private TextField buildYear;
+    private TextField builtYear;
     @FXML
     private TextField cost;
     @FXML
@@ -72,7 +79,31 @@ public class HelloController {
         makeType();
     }
 
-    public void addNewBtn(ActionEvent actionEvent) {
+    public void addNewBtn(ActionEvent actionEvent) throws SQLException {
+        try{DBUtil.insert(parseInt(ownerID.getText()), name.getText(),
+                address.getText(), phone.getText(),
+                email.getText(),parseInt(carID.getText()), make.getText(),
+                model.getText(),parseInt(carVIN.getText()),parseInt(builtYear.getText()),
+                type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                description.getText(), parseInt(cost.getText()));
+            ownerID.setText("");
+            name.setText("");
+            address.setText("");
+            phone.setText("");
+            email.setText("");
+            carID.setText("");
+            make.setText("");
+            model.setText("");
+            carVIN.setText("");
+            builtYear.setText("");
+            makeType();
+            date.setValue(null);
+            description.setText("");
+            cost.setText("");
+        }
+        catch(SQLException e){
+            displayArea.setAccessibleText(e.getMessage());
+        }
 
     }
 
