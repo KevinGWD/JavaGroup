@@ -145,8 +145,12 @@ public class HelloController {
 
     }
 
-    public void deleteBtn(ActionEvent actionEvent) {
-
+    public void deleteBtn(ActionEvent actionEvent) throws SQLException {
+        Repair repair=(Repair) displayArea.getSelectionModel().getSelectedItem();
+        DBUtil.deleteData("REPAIR", "repairID",repair.getRepairID());
+        DBUtil.deleteData("OWNER", "OWNERID",repair.getOwnerID());
+        DBUtil.deleteData("CAR", "CARID",repair.getCarID());
+        populateData();
     }
     public void populateData () throws SQLException {
 

@@ -63,13 +63,14 @@ public class DBUtil {
         return crs;
     }
 
-    public static void deleteData(String tableName, int id) throws SQLException {
+    public static void deleteData(String tableName, String idName, int id) throws SQLException {
         dbConnect();
-        String sql = "DELETE FROM " + tableName + " WHERE repairid=" + id;
+        String sql = "DELETE FROM " + tableName + " WHERE "+idName+"=" + id;
         statement.executeUpdate(sql);
         System.out.println(id + "has been deleted");
         dbDisConnect();
     }
+
 
 //    public static void main(String[] args) throws SQLException {
 //        DBUtil.dbConnect();
