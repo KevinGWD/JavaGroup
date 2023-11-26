@@ -69,6 +69,10 @@ public class HelloController {
     private TableColumn<Repair,String> repairDescriptionColumn;
     @FXML
     private TableColumn<Repair,Integer> costColumn;
+    @FXML
+    private Label message;
+    @FXML
+    private Button addNew;
 
 
     public HelloController() {
@@ -87,12 +91,20 @@ public class HelloController {
 
     public void addNewBtn(ActionEvent actionEvent) throws SQLException {
         try{
+            addNew.setDisable(true);
             DBUtil.insert(parseInt(ownerID.getText()), name.getText(),
                 address.getText(), phone.getText(),
                 email.getText(),parseInt(carID.getText()), make.getText(),
                 model.getText(),parseInt(carVIN.getText()),parseInt(builtYear.getText()),
                 type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                 description.getText(), parseInt(cost.getText()));
+            addNew.setDisable(false);
+            message.setText("");}
+        catch(Exception e){
+            message.setText("Please do not leave input empty and use correct data type");
+            addNew.setDisable(false);
+            return;
+        }
             populateData();
             ownerID.setText("");
             name.setText("");
@@ -108,11 +120,6 @@ public class HelloController {
             date.setValue(null);
             description.setText("");
             cost.setText("");
-        }
-        catch(SQLException e){
-            displayArea.setAccessibleText(e.getMessage());
-        }
-
     }
 
     public void updateBtn(ActionEvent actionEvent) {

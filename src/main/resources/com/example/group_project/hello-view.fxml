@@ -8,10 +8,10 @@
 
 <Pane prefHeight="738.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.group_project.HelloController">
    <children>
-       <GridPane alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="484.0" prefWidth="511.0">
+       <GridPane alignment="CENTER_RIGHT" layoutX="14.0" prefHeight="493.0" prefWidth="511.0">
            <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="58.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="131.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="72.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="117.0" />
                <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="9.0" prefWidth="87.0" />
                <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="235.0" />
            </columnConstraints>
@@ -75,7 +75,7 @@
                    </padding>
                </Label>
                <DatePicker fx:id="date" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-               <ComboBox fx:id="type"  prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+               <ComboBox fx:id="type" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                <TextField fx:id="builtYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                <TextField fx:id="model" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                <TextField fx:id="cost" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -83,8 +83,8 @@
                <TextField fx:id="carVIN" GridPane.columnIndex="3" GridPane.rowIndex="4" />
            </children>
        </GridPane>
-       <Button fx:id="addNew" layoutX="283.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" text="Add New" />
-       <Button fx:id="update" layoutX="379.0" layoutY="646.0" mnemonicParsing="false" onAction="#updateBtn" text="Update" />
+       <Button fx:id="addNew" layoutX="385.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" text="Add New" />
+       <Button fx:id="update" layoutX="470.0" layoutY="646.0" mnemonicParsing="false" onAction="#updateBtn" text="Update" />
        <TableView fx:id="displayArea" layoutX="540.0" prefHeight="560.0" prefWidth="583.0">
            <columns>
                <TableColumn fx:id="repairIDColumn" prefWidth="61.0" text="Repair ID" />
@@ -96,19 +96,24 @@
            </columns>
        </TableView>
        <TextArea fx:id="description" layoutX="14.0" layoutY="440.0" prefHeight="201.0" prefWidth="511.0" />
-       <Button fx:id="findByOwner" layoutX="687.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByOwnerIDBtn" text="Find by owner ID" />
-       <Button fx:id="findByCarID" layoutX="1005.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByCarIDBtn" text="Find by car ID" />
+       <Button fx:id="findByOwner" layoutX="633.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByOwnerIDBtn" text="Find by owner ID" />
+       <Button fx:id="findByCarID" layoutX="866.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByCarIDBtn" text="Find by car ID" />
        <Button fx:id="findByDate" layoutX="1008.0" layoutY="646.0" mnemonicParsing="false" onAction="#findByDateBtn" text="Find by date" />
        <Label layoutX="588.0" layoutY="650.0" text="Between" />
        <Label layoutX="804.0" layoutY="650.0" text="and" />
        <DatePicker fx:id="startDate" layoutX="650.0" layoutY="646.0" prefHeight="25.0" prefWidth="143.0" />
        <DatePicker fx:id="endDate" layoutX="839.0" layoutY="646.0" prefHeight="25.0" prefWidth="143.0" />
-       <TextField fx:id="queryOwnerID" layoutX="567.0" layoutY="582.0" prefHeight="25.0" prefWidth="106.0" />
-       <TextField fx:id="queryCarID" layoutX="892.0" layoutY="582.0" prefHeight="25.0" prefWidth="106.0" />
-      <Button fx:id="delete" layoutX="466.0" layoutY="646.0" mnemonicParsing="false" onAction="#deleteBtn" text="Delete" textFill="#f80909">
+       <TextField fx:id="queryOwnerID" layoutX="544.0" layoutY="582.0" prefHeight="25.0" prefWidth="73.0" />
+       <TextField fx:id="queryCarID" layoutX="765.0" layoutY="582.0" prefHeight="25.0" prefWidth="73.0" />
+      <Button fx:id="delete" layoutX="1008.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteBtn" text="Delete" textFill="#f80909">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="message" layoutX="24.0" layoutY="646.0" prefHeight="25.0" prefWidth="361.0" textFill="#ee0f0f">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
