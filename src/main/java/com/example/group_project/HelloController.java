@@ -116,14 +116,14 @@ public class HelloController {
             model.setText("");
             carVIN.setText("");
             builtYear.setText("");
-            makeType();
+//            makeType();
             date.setValue(null);
             description.setText("");
             cost.setText("");
     }
 
     public void updateBtn(ActionEvent actionEvent) {
-
+        Repair repair=(Repair) displayArea.getSelectionModel().getSelectedItem(); //get repair obj to update
     }
 
     public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
@@ -179,5 +179,10 @@ public class HelloController {
     public void initialize() throws SQLException{
         makeType();
         populateData();
+    }
+
+    public void saveUpdate(ActionEvent actionEvent) {
+
+
     }
 }

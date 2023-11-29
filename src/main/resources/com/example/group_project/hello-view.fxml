@@ -83,8 +83,8 @@
                <TextField fx:id="carVIN" GridPane.columnIndex="3" GridPane.rowIndex="4" />
            </children>
        </GridPane>
-       <Button fx:id="addNew" layoutX="385.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" text="Add New" />
-       <Button fx:id="update" layoutX="470.0" layoutY="646.0" mnemonicParsing="false" onAction="#updateBtn" text="Update" />
+       <Button fx:id="addNew" layoutX="248.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" />
+       <Button fx:id="update" layoutX="981.0" layoutY="582.0" mnemonicParsing="false" onAction="#updateBtn" text="Update" />
        <TableView fx:id="displayArea" layoutX="540.0" prefHeight="560.0" prefWidth="583.0">
            <columns>
                <TableColumn fx:id="repairIDColumn" prefWidth="61.0" text="Repair ID" />
@@ -95,7 +95,7 @@
                <TableColumn fx:id="costColumn" prefWidth="75.0" text="Cost ($)" />
            </columns>
        </TableView>
-       <TextArea fx:id="description" layoutX="14.0" layoutY="440.0" prefHeight="201.0" prefWidth="511.0" />
+       <TextArea fx:id="description" layoutX="14.0" layoutY="440.0" prefHeight="168.0" prefWidth="511.0" />
        <Button fx:id="findByOwner" layoutX="633.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByOwnerIDBtn" text="Find by owner ID" />
        <Button fx:id="findByCarID" layoutX="866.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByCarIDBtn" text="Find by car ID" />
        <Button fx:id="findByDate" layoutX="1008.0" layoutY="646.0" mnemonicParsing="false" onAction="#findByDateBtn" text="Find by date" />
@@ -105,15 +105,16 @@
        <DatePicker fx:id="endDate" layoutX="839.0" layoutY="646.0" prefHeight="25.0" prefWidth="143.0" />
        <TextField fx:id="queryOwnerID" layoutX="544.0" layoutY="582.0" prefHeight="25.0" prefWidth="73.0" />
        <TextField fx:id="queryCarID" layoutX="765.0" layoutY="582.0" prefHeight="25.0" prefWidth="73.0" />
-      <Button fx:id="delete" layoutX="1008.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteBtn" text="Delete" textFill="#f80909">
+      <Button fx:id="delete" layoutX="1054.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteBtn" text="Delete" textFill="#f80909">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="message" layoutX="24.0" layoutY="646.0" prefHeight="25.0" prefWidth="361.0" textFill="#ee0f0f">
+      <Label fx:id="message" layoutX="14.0" layoutY="608.0" prefHeight="25.0" prefWidth="511.0" textFill="#ee0f0f">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <Button fx:id="save" layoutX="403.0" layoutY="646.0" mnemonicParsing="false" onAction="#saveUpdate" prefHeight="25.0" prefWidth="89.0" text="Save update" />
    </children>
 </Pane>
