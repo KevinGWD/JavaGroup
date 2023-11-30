@@ -47,6 +47,22 @@ public class DBUtil {
         if (statement != null) statement.close();
         dbDisConnect();
     }
+    public static void update(int ownerID, String name, String address, String phone, String email, int carID, String make,
+                              String model, int carVIN, int builtYear, String type, String date, String description,
+                              int cost) throws SQLException {
+        dbConnect();
+        String sql = "UPDATE OWNER SET NAME='"+name+"', ADDRESS='"+address+"', PHONE='"+phone+"', EMAIL='"+email+"' WHERE OWNERID="+ownerID;
+        statement.executeUpdate(sql);
+        System.out.println("1 row UPDATED");
+        sql = "UPDATE CAR SET MAKE='"+make+"', MODEL='"+model+"', VIN="+carVIN+", BUILDYEAR="+builtYear+", TYPE='"+type+"'  WHERE CARID="+carID;
+        statement.executeUpdate(sql);
+        System.out.println("1 row UPDATED");
+        sql = "UPDATE REPAIR SET S_DATE='"+date+"', S_DESCRIPTION='"+description+"', S_COST="+cost+"  WHERE CARID="+carID;
+        statement.executeUpdate(sql);
+        System.out.println("1 row inserted");
+        if (statement != null) statement.close();
+        dbDisConnect();
+    }
 
 
     public static ResultSet query(String sql) throws SQLException {

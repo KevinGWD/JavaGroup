@@ -73,7 +73,10 @@ public class HelloController {
     private Label message;
     @FXML
     private Button addNew;
-
+    @FXML
+    private Button save;
+    @FXML
+    private Button update;
 
     public HelloController() {
     }
@@ -105,25 +108,44 @@ public class HelloController {
             addNew.setDisable(false);
             return;
         }
-            populateData();
-            ownerID.setText("");
-            name.setText("");
-            address.setText("");
-            phone.setText("");
-            email.setText("");
-            carID.setText("");
-            make.setText("");
-            model.setText("");
-            carVIN.setText("");
-            builtYear.setText("");
-//            makeType();
-            date.setValue(null);
-            description.setText("");
-            cost.setText("");
+        populateData();
+        resetInput();
+        update.setDisable(true);
     }
 
-    public void updateBtn(ActionEvent actionEvent) {
+    public void updateBtn(ActionEvent actionEvent) throws SQLException {
         Repair repair=(Repair) displayArea.getSelectionModel().getSelectedItem(); //get repair obj to update
+        String sqlGetRepair="SELECT * FROM REPAIR WHERE REPAIRID="+repair.getRepairID();
+        ResultSet rsRepair=DBUtil.query(sqlGetRepair);
+        String sqlGetOwner="SELECT * FROM OWNER WHERE OWNERID="+repair.getOwnerID();
+        ResultSet rsOwer=DBUtil.query(sqlGetOwner);
+        String sqlGetCar="SELECT * FROM CAR WHERE CARID="+repair.getCarID();
+        ResultSet rsCar=DBUtil.query(sqlGetCar);
+        while (rsRepair.next()){
+            cost.setText(rsRepair.getString("S_COST"));
+            description.setText(rsRepair.getString("S_DESCRIPTION"));
+        }
+        while (rsOwer.next()){
+            name.setText(rsOwer.getString("NAME"));
+            address.setText(rsOwer.getString("ADDRESS"));
+            phone.setText(rsOwer.getString("PHONE"));
+            email.setText(rsOwer.getString("EMAIL"));
+            ownerID.setText(rsOwer.getString("OWNERID"));
+        }
+        while (rsCar.next()){
+            carID.setText(rsCar.getString("CARID"));
+            make.setText(rsCar.getString("MAKE"));
+            model.setText(rsCar.getString("MODEL"));
+            carVIN.setText(rsCar.getString("VIN"));
+            builtYear.setText(rsCar.getString("BUILDYEAR"));
+            type.setValue(rsCar.getString("TYPE"));
+        }
+        date.setValue(LocalDate.now());
+        addNew.setDisable(true);
+        ownerID.setDisable(true);
+        carID.setDisable(true);
+        save.setDisable(false);
+
     }
 
     public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
@@ -179,10 +201,42 @@ public class HelloController {
     public void initialize() throws SQLException{
         makeType();
         populateData();
+        save.setDisable(true);
     }
 
-    public void saveUpdate(ActionEvent actionEvent) {
+    public void saveUpdate(ActionEvent actionEvent) throws SQLException {
+        DBUtil.update(parseInt(ownerID.getText()), name.getText(),
+                address.getText(), phone.getText(),
+                email.getText(),parseInt(carID.getText()), make.getText(),
+                model.getText(),parseInt(carVIN.getText()),parseInt(builtYear.getText()),
+                type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                description.getText(), parseInt(cost.getText()));
+        populateData();
+        resetInput();
+        save.setDisable(true);
+        addNew.setDisable(false);
+        ownerID.setDisable(false);
+        carID.setDisable(false);
+    }
 
+    public void resetInput(){
+        ownerID.setText("");
+        name.setText("");
+        address.setText("");
+        phone.setText("");
+        email.setText("");
+        carID.setText("");
+        make.setText("");
+        model.setText("");
+        carVIN.setText("");
+        builtYear.setText("");
+//            makeType();
+        date.setValue(null);
+        description.setText("");
+        cost.setText("");
+    }
 
+    public void tableOncllick(SortEvent<TableView<Repair>> tableViewSortEvent) {
+        update.setDisable(false);
     }
 }
