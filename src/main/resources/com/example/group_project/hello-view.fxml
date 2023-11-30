@@ -85,7 +85,7 @@
        </GridPane>
        <Button fx:id="addNew" layoutX="248.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" />
        <Button fx:id="update" layoutX="928.0" layoutY="582.0" mnemonicParsing="false" onAction="#updateBtn" text="Load Information" />
-       <TableView fx:id="displayArea" layoutX="540.0" onSort="#tableOncllick" prefHeight="560.0" prefWidth="583.0">
+       <TableView fx:id="displayArea" layoutX="540.0" prefHeight="560.0" prefWidth="583.0">
            <columns>
                <TableColumn fx:id="repairIDColumn" prefWidth="61.0" text="Repair ID" />
                <TableColumn fx:id="ownerIDColumn" minWidth="0.0" prefWidth="93.0" text="Owner ID" />

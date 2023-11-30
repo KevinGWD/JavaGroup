@@ -58,17 +58,17 @@ public class HelloController {
     @FXML
     private ComboBox<String> type;
     @FXML
-    private TableColumn<Repair,Integer> repairIDColumn;
+    private TableColumn<Repair, Integer> repairIDColumn;
     @FXML
-    private TableColumn<Repair,Integer> ownerIDColumn;
+    private TableColumn<Repair, Integer> ownerIDColumn;
     @FXML
-    private TableColumn<Repair,Integer> carIDColumn;
+    private TableColumn<Repair, Integer> carIDColumn;
     @FXML
     private TableColumn<Repair, Date> repairDateColumn;
     @FXML
-    private TableColumn<Repair,String> repairDescriptionColumn;
+    private TableColumn<Repair, String> repairDescriptionColumn;
     @FXML
-    private TableColumn<Repair,Integer> costColumn;
+    private TableColumn<Repair, Integer> costColumn;
     @FXML
     private Label message;
     @FXML
@@ -77,33 +77,34 @@ public class HelloController {
     private Button save;
     @FXML
     private Button update;
+    @FXML
+    private Button delete;
 
     public HelloController() {
     }
 
 
-    public void  makeType(){  //making the ComboBox menu
+    public void makeType() {  //making the ComboBox menu
 
-        String[] types ={"Sedan", "SUV", "Van", "Truck"};
+        String[] types = {"Sedan", "SUV", "Van", "Truck"};
         type.getItems().removeAll();
         type.getItems().addAll(types);
         type.getSelectionModel().select("SUV");
     }
 
 
-
     public void addNewBtn(ActionEvent actionEvent) throws SQLException {
-        try{
+        try {
             addNew.setDisable(true);
             DBUtil.insert(parseInt(ownerID.getText()), name.getText(),
-                address.getText(), phone.getText(),
-                email.getText(),parseInt(carID.getText()), make.getText(),
-                model.getText(),parseInt(carVIN.getText()),parseInt(builtYear.getText()),
-                type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
-                description.getText(), parseInt(cost.getText()));
+                    address.getText(), phone.getText(),
+                    email.getText(), parseInt(carID.getText()), make.getText(),
+                    model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
+                    type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                    description.getText(), parseInt(cost.getText()));
             addNew.setDisable(false);
-            message.setText("");}
-        catch(Exception e){
+            message.setText("");
+        } catch (Exception e) {
             message.setText("Please do not leave input empty and use correct data type");
             addNew.setDisable(false);
             return;
@@ -115,25 +116,25 @@ public class HelloController {
     }
 
     public void updateBtn(ActionEvent actionEvent) throws SQLException {
-        Repair repair=(Repair) displayArea.getSelectionModel().getSelectedItem(); //get repair obj to update
-        String sqlGetRepair="SELECT * FROM REPAIR WHERE REPAIRID="+repair.getRepairID();
-        ResultSet rsRepair=DBUtil.query(sqlGetRepair);
-        String sqlGetOwner="SELECT * FROM OWNER WHERE OWNERID="+repair.getOwnerID();
-        ResultSet rsOwer=DBUtil.query(sqlGetOwner);
-        String sqlGetCar="SELECT * FROM CAR WHERE CARID="+repair.getCarID();
-        ResultSet rsCar=DBUtil.query(sqlGetCar);
-        while (rsRepair.next()){
+        Repair repair = (Repair) displayArea.getSelectionModel().getSelectedItem(); //get repair obj to update
+        String sqlGetRepair = "SELECT * FROM REPAIR WHERE REPAIRID=" + repair.getRepairID();
+        ResultSet rsRepair = DBUtil.query(sqlGetRepair);
+        String sqlGetOwner = "SELECT * FROM OWNER WHERE OWNERID=" + repair.getOwnerID();
+        ResultSet rsOwer = DBUtil.query(sqlGetOwner);
+        String sqlGetCar = "SELECT * FROM CAR WHERE CARID=" + repair.getCarID();
+        ResultSet rsCar = DBUtil.query(sqlGetCar);
+        while (rsRepair.next()) {
             cost.setText(rsRepair.getString("S_COST"));
             description.setText(rsRepair.getString("S_DESCRIPTION"));
         }
-        while (rsOwer.next()){
+        while (rsOwer.next()) {
             name.setText(rsOwer.getString("NAME"));
             address.setText(rsOwer.getString("ADDRESS"));
             phone.setText(rsOwer.getString("PHONE"));
             email.setText(rsOwer.getString("EMAIL"));
             ownerID.setText(rsOwer.getString("OWNERID"));
         }
-        while (rsCar.next()){
+        while (rsCar.next()) {
             carID.setText(rsCar.getString("CARID"));
             make.setText(rsCar.getString("MAKE"));
             model.setText(rsCar.getString("MODEL"));
@@ -146,41 +147,49 @@ public class HelloController {
         ownerID.setDisable(true);
         carID.setDisable(true);
         save.setDisable(false);
+        update.setDisable(true);
+//        delete.setDisable(true);
 
     }
 
     public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
-        String sql="SELECT * FROM REPAIR WHERE OWNERID="+queryOwnerID.getText();
+        String sql = "SELECT * FROM REPAIR WHERE OWNERID=" + queryOwnerID.getText();
         fillingTable(sql);
     }
 
     public void findByCarIDBtn(ActionEvent actionEvent) throws SQLException {
-        String sql="SELECT * FROM REPAIR WHERE CARID="+queryCarID.getText();
+        String sql = "SELECT * FROM REPAIR WHERE CARID=" + queryCarID.getText();
         fillingTable(sql);
     }
 
     public void findByDateBtn(ActionEvent actionEvent) throws SQLException {
-        String sql="SELECT * FROM REPAIR WHERE S_DATE BETWEEN '"+startDate.getValue()+"' AND '"+endDate.getValue()+"'";
+        String sql = "SELECT * FROM REPAIR WHERE S_DATE BETWEEN '" + startDate.getValue() + "' AND '" + endDate.getValue() + "'";
         fillingTable(sql);
     }
 
     public void deleteBtn(ActionEvent actionEvent) throws SQLException {
-        Repair repair=(Repair) displayArea.getSelectionModel().getSelectedItem();
-        DBUtil.deleteData("REPAIR", "repairID",repair.getRepairID());
-        DBUtil.deleteData("OWNER", "OWNERID",repair.getOwnerID());
-        DBUtil.deleteData("CAR", "CARID",repair.getCarID());
+        Repair repair = (Repair) displayArea.getSelectionModel().getSelectedItem();
+        DBUtil.deleteData("REPAIR", "repairID", repair.getRepairID());
+        DBUtil.deleteData("OWNER", "OWNERID", repair.getOwnerID());
+        DBUtil.deleteData("CAR", "CARID", repair.getCarID());
         populateData();
+        resetInput();
+        delete.setDisable(true);
+        update.setDisable(true);
+        save.setDisable(true);
+        addNew.setDisable(false);
     }
-    public void populateData () throws SQLException {
-           String sql="SELECT * FROM REPAIR";
-           fillingTable(sql);
-        }
+
+    public void populateData() throws SQLException {
+        String sql = "SELECT * FROM REPAIR";
+        fillingTable(sql);
+    }
 
     public void fillingTable(String sql) throws SQLException {
-        ResultSet rs=DBUtil.query(sql);
-        ObservableList<Repair> repairs= FXCollections.observableArrayList();
-        while (rs.next()){
-            Repair repair=new Repair(rs.getInt("REPAIRID"), rs.getInt("OWNERID"),
+        ResultSet rs = DBUtil.query(sql);
+        ObservableList<Repair> repairs = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Repair repair = new Repair(rs.getInt("REPAIRID"), rs.getInt("OWNERID"),
                     rs.getInt("CARID"), rs.getDate("S_DATE"),
                     rs.getString("S_DESCRIPTION"), rs.getInt("S_COST"));
             repairs.add(repair);
@@ -199,17 +208,26 @@ public class HelloController {
         displayArea.sort();
     }
 
-    public void initialize() throws SQLException{
+    public void initialize() throws SQLException {
         makeType();
         populateData();
+        update.setDisable(true);
         save.setDisable(true);
+        delete.setDisable(true);
+
+        displayArea.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                update.setDisable(false);
+                delete.setDisable(false);
+            }
+        });
     }
 
     public void saveUpdate(ActionEvent actionEvent) throws SQLException {
         DBUtil.update(parseInt(ownerID.getText()), name.getText(),
                 address.getText(), phone.getText(),
-                email.getText(),parseInt(carID.getText()), make.getText(),
-                model.getText(),parseInt(carVIN.getText()),parseInt(builtYear.getText()),
+                email.getText(), parseInt(carID.getText()), make.getText(),
+                model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
                 type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                 description.getText(), parseInt(cost.getText()));
         populateData();
@@ -220,7 +238,7 @@ public class HelloController {
         carID.setDisable(false);
     }
 
-    public void resetInput(){
+    public void resetInput() {
         ownerID.setText("");
         name.setText("");
         address.setText("");
@@ -231,13 +249,8 @@ public class HelloController {
         model.setText("");
         carVIN.setText("");
         builtYear.setText("");
-//            makeType();
         date.setValue(null);
         description.setText("");
         cost.setText("");
-    }
-
-    public void tableOncllick(SortEvent<TableView<Repair>> tableViewSortEvent) {
-        update.setDisable(false);
     }
 }
