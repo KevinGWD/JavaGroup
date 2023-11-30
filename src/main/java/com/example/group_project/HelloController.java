@@ -108,6 +108,7 @@ public class HelloController {
             addNew.setDisable(false);
             return;
         }
+        message.setText("");
         populateData();
         resetInput();
         update.setDisable(true);
