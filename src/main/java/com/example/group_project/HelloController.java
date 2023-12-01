@@ -80,9 +80,6 @@ public class HelloController {
     @FXML
     private Button delete;
 
-    public HelloController() {
-    }
-
 
     public void makeType() {  //making the ComboBox menu
 
@@ -91,7 +88,6 @@ public class HelloController {
         type.getItems().addAll(types);
         type.getSelectionModel().select("SUV");
     }
-
 
     public void addNewBtn(ActionEvent actionEvent) throws SQLException {
         try {
@@ -103,16 +99,19 @@ public class HelloController {
                     type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
                     description.getText(), parseInt(cost.getText()));
             addNew.setDisable(false);
+            delete.setDisable(true);
             message.setText("");
         } catch (Exception e) {
             message.setText("Please do not leave input empty and use correct data type");
             addNew.setDisable(false);
+            delete.setDisable(true);
             return;
         }
         message.setText("");
         populateData();
         resetInput();
         update.setDisable(true);
+        delete.setDisable(true);
     }
 
     public void updateBtn(ActionEvent actionEvent) throws SQLException {
@@ -148,8 +147,6 @@ public class HelloController {
         carID.setDisable(true);
         save.setDisable(false);
         update.setDisable(true);
-//        delete.setDisable(true);
-
     }
 
     public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
