@@ -9,7 +9,7 @@ import javax.sql.rowset.RowSetProvider;
 
 import static java.sql.DriverManager.getConnection;
 
-public class DBUtil {
+public class DBUtil {//connect to database with JDBC api
     private static Connection connection = null;
     private static Statement statement = null;
 
@@ -31,17 +31,26 @@ public class DBUtil {
 
     }
 
-    public static void insert(int ownerID, String name, String address, String phone, String email, int carID, String make,
-                              String model, int carVIN, int builtYear, String type, String date, String description,
-                              int cost) throws SQLException {
+    public static void insertOwner(int ownerID, String name, String address, String phone, String email) throws SQLException {
         dbConnect();
         String sql = "INSERT INTO OWNER VALUES ("+ownerID+", '"+name+"', '"+address+"', '"+phone+"', '"+email+"')";
         statement.executeUpdate(sql);
         System.out.println("1 row inserted");
-        sql = "INSERT INTO CAR VALUES ("+carID+", '"+make+"', '"+model+"', "+carVIN+", "+builtYear+", '"+type+"')";
+        if (statement != null) statement.close();
+        dbDisConnect();
+    }
+    public static void insertCar(int carID, String make,String model, int carVIN, int builtYear, String type) throws SQLException {
+        dbConnect();
+        String sql = "INSERT INTO CAR VALUES ("+carID+", '"+make+"', '"+model+"', "+carVIN+", "+builtYear+", '"+type+"')";
         statement.executeUpdate(sql);
         System.out.println("1 row inserted");
-        sql = "INSERT INTO REPAIR (ownerid, carid, s_date, s_description, s_cost) VALUES ("+ownerID+", "+carID+", '"+date+"', '"+description+"', "+cost+")";
+        if (statement != null) statement.close();
+        dbDisConnect();
+    }
+    public static void insertJob(int ownerID,int carID,String date, String description,
+                              int cost) throws SQLException {
+        dbConnect();
+        String sql = "INSERT INTO REPAIR (ownerid, carid, s_date, s_description, s_cost) VALUES ("+ownerID+", "+carID+", '"+date+"', '"+description+"', "+cost+")";
         statement.executeUpdate(sql);
         System.out.println("1 row inserted");
         if (statement != null) statement.close();
@@ -50,6 +59,7 @@ public class DBUtil {
     public static void update(int ownerID, String name, String address, String phone, String email, int carID, String make,
                               String model, int carVIN, int builtYear, String type, String date, String description,
                               int cost) throws SQLException {
+        System.out.println(date);
         dbConnect();
         String sql = "UPDATE OWNER SET NAME='"+name+"', ADDRESS='"+address+"', PHONE='"+phone+"', EMAIL='"+email+"' WHERE OWNERID="+ownerID;
         statement.executeUpdate(sql);
@@ -63,7 +73,6 @@ public class DBUtil {
         if (statement != null) statement.close();
         dbDisConnect();
     }
-
 
     public static ResultSet query(String sql) throws SQLException {
         CachedRowSet crs= RowSetProvider.newFactory().createCachedRowSet();

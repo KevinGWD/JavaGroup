@@ -15,8 +15,10 @@ import java.util.List;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-
+import java.text.SimpleDateFormat;
 import static java.lang.Integer.parseInt;
+
+
 
 public class HelloController {
     @FXML
@@ -72,14 +74,19 @@ public class HelloController {
     @FXML
     private Label message;
     @FXML
-    private Button addNew;
+    private Button addNewOwner;
     @FXML
-    private Button save;
+    private Button loadInformation;
     @FXML
     private Button update;
     @FXML
     private Button delete;
+    @FXML
+    private Button addNewCar;
+    @FXML
+    private Button addNewJob;
 
+    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yy");
 
     public void makeType() {  //making the ComboBox menu
 
@@ -88,22 +95,16 @@ public class HelloController {
         type.getItems().addAll(types);
         type.getSelectionModel().select("SUV");
     }
-
-    public void addNewBtn(ActionEvent actionEvent) throws SQLException {
+    
+    public void addNewJobBtn(ActionEvent actionEvent) throws SQLException {
         try {
-            addNew.setDisable(true);
-            DBUtil.insert(parseInt(ownerID.getText()), name.getText(),
-                    address.getText(), phone.getText(),
-                    email.getText(), parseInt(carID.getText()), make.getText(),
-                    model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
-                    type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+            DBUtil.insertJob(parseInt(ownerID.getText()),  parseInt(carID.getText()),
+                    String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("dd-MMM-yy"))),
                     description.getText(), parseInt(cost.getText()));
-            addNew.setDisable(false);
             delete.setDisable(true);
             message.setText("");
         } catch (Exception e) {
             message.setText("Please do not leave input empty and use correct data type");
-            addNew.setDisable(false);
             delete.setDisable(true);
             return;
         }
@@ -112,9 +113,37 @@ public class HelloController {
         resetInput();
         update.setDisable(true);
         delete.setDisable(true);
+    }    
+    public void addNewCarBtn(ActionEvent actionEvent) throws SQLException {
+        try {
+            addNewOwner.setDisable(true);
+            DBUtil.insertCar(parseInt(carID.getText()), make.getText(),
+                    model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
+                    type.getValue());
+            delete.setDisable(true);
+            message.setText("");
+        } catch (Exception e) {
+            message.setText("Please do not leave input empty and use correct data type");
+            delete.setDisable(true);
+            return;
+        }
+        delete.setDisable(true);
     }
 
-    public void updateBtn(ActionEvent actionEvent) throws SQLException {
+    public void addNewOwnerBtn(ActionEvent actionEvent) throws SQLException {
+        try {
+            DBUtil.insertOwner(parseInt(ownerID.getText()), name.getText(),
+                    address.getText(), phone.getText(),
+                    email.getText());
+            message.setText("");
+        } catch (Exception e) {
+            message.setText("Please do not leave input empty and use correct data type");
+            return;
+        }
+        delete.setDisable(true);
+    }
+
+    public void loadInformationBtn(ActionEvent actionEvent) throws SQLException {
         Repair repair = (Repair) displayArea.getSelectionModel().getSelectedItem(); //get repair obj to update
         String sqlGetRepair = "SELECT * FROM REPAIR WHERE REPAIRID=" + repair.getRepairID();
         ResultSet rsRepair = DBUtil.query(sqlGetRepair);
@@ -142,11 +171,7 @@ public class HelloController {
             type.setValue(rsCar.getString("TYPE"));
         }
         date.setValue(LocalDate.now());
-        addNew.setDisable(true);
-        ownerID.setDisable(true);
-        carID.setDisable(true);
-        save.setDisable(false);
-        update.setDisable(true);
+
     }
 
     public void findByOwnerIDBtn(ActionEvent actionEvent) throws SQLException {
@@ -167,14 +192,13 @@ public class HelloController {
     public void deleteBtn(ActionEvent actionEvent) throws SQLException {
         Repair repair = (Repair) displayArea.getSelectionModel().getSelectedItem();
         DBUtil.deleteData("REPAIR", "repairID", repair.getRepairID());
-        DBUtil.deleteData("OWNER", "OWNERID", repair.getOwnerID());
-        DBUtil.deleteData("CAR", "CARID", repair.getCarID());
+//        DBUtil.deleteData("OWNER", "OWNERID", repair.getOwnerID());
+//        DBUtil.deleteData("CAR", "CARID", repair.getCarID());
         populateData();
         resetInput();
         delete.setDisable(true);
         update.setDisable(true);
-        save.setDisable(true);
-        addNew.setDisable(false);
+        update.setDisable(true);
     }
 
     public void populateData() throws SQLException {
@@ -209,7 +233,6 @@ public class HelloController {
         makeType();
         populateData();
         update.setDisable(true);
-        save.setDisable(true);
         delete.setDisable(true);
 
         displayArea.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -220,17 +243,15 @@ public class HelloController {
         });
     }
 
-    public void saveUpdate(ActionEvent actionEvent) throws SQLException {
+    public void updateBtn(ActionEvent actionEvent) throws SQLException {
         DBUtil.update(parseInt(ownerID.getText()), name.getText(),
                 address.getText(), phone.getText(),
                 email.getText(), parseInt(carID.getText()), make.getText(),
                 model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
-                type.getValue(), String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+                type.getValue(), date.getValue().format(DateTimeFormatter.ofPattern("dd-MMM-yy")),
                 description.getText(), parseInt(cost.getText()));
         populateData();
         resetInput();
-        save.setDisable(true);
-        addNew.setDisable(false);
         ownerID.setDisable(false);
         carID.setDisable(false);
     }
@@ -249,5 +270,19 @@ public class HelloController {
         date.setValue(null);
         description.setText("");
         cost.setText("");
+    }
+
+
+
+    public void saveCar(ActionEvent actionEvent) {
+    }
+
+    public void saveOwner(ActionEvent actionEvent) {
+    }
+
+    public void saveJob(ActionEvent actionEvent) {
+    }
+
+    public void saveUpdateBtn(ActionEvent actionEvent) {
     }
 }

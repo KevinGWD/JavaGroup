@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -8,7 +9,7 @@
 
 <Pane prefHeight="738.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.group_project.HelloController">
    <children>
-       <GridPane alignment="CENTER_RIGHT" layoutX="14.0" prefHeight="493.0" prefWidth="511.0">
+       <GridPane alignment="TOP_RIGHT" layoutX="14.0" prefHeight="493.0" prefWidth="511.0">
            <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="72.0" />
                <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="117.0" />
@@ -20,71 +21,77 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
            <children>
-               <Label text="Name" />
-               <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Address" textAlignment="RIGHT" GridPane.columnIndex="2">
+               <Label text="Name" GridPane.rowIndex="1" />
+               <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Address" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <Label text="Phone" GridPane.rowIndex="1" />
-               <Label text="Email" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <Label text="Phone" GridPane.rowIndex="2" />
+               <Label text="Email" GridPane.columnIndex="2" GridPane.rowIndex="2">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <Label text="Car ID" GridPane.rowIndex="3" />
-               <Label text="Car make" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <Label text="Car ID" GridPane.rowIndex="7" />
+               <Label text="Car make" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="7">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <Label text="Model" GridPane.rowIndex="4" />
-               <Label prefHeight="22.0" prefWidth="57.0" text="VIN" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <Label text="Model" GridPane.rowIndex="8" />
+               <Label prefHeight="22.0" prefWidth="57.0" text="VIN" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="8">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <Label text="Build Year" GridPane.rowIndex="5" />
-               <Label text="Type" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <Label text="Build Year" GridPane.rowIndex="9" />
+               <Label text="Type" GridPane.columnIndex="2" GridPane.rowIndex="9">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <Label prefHeight="17.0" prefWidth="124.0" text="REPAIR INFORMATION" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               <Label text="Owner ID" GridPane.rowIndex="2" />
-               <Label text="Description" GridPane.rowIndex="8" />
+               <Label prefHeight="17.0" prefWidth="139.0" text="REPAIR JOB" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+               <Label text="Owner ID" GridPane.rowIndex="3" />
                <Label />
-               <Label text="Cost" GridPane.rowIndex="7" />
-               <TextField fx:id="name" GridPane.columnIndex="1" />
-               <TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <TextField fx:id="address" GridPane.columnIndex="3" />
-               <TextField fx:id="email" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-               <TextField fx:id="ownerID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <TextField fx:id="carID" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <Label text="Date" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <Label text="Cost" GridPane.rowIndex="13" />
+               <TextField fx:id="name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <TextField fx:id="address" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+               <TextField fx:id="email" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+               <TextField fx:id="ownerID" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <TextField fx:id="carID" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+               <Label text="Date" GridPane.columnIndex="2" GridPane.rowIndex="13">
                    <padding>
                        <Insets left="30.0" />
                    </padding>
                </Label>
-               <DatePicker fx:id="date" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-               <ComboBox fx:id="type" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-               <TextField fx:id="builtYear" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-               <TextField fx:id="model" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-               <TextField fx:id="cost" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-               <TextField fx:id="make" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-               <TextField fx:id="carVIN" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+               <DatePicker fx:id="date" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+               <ComboBox fx:id="type" prefHeight="25.0" prefWidth="237.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+               <TextField fx:id="builtYear" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+               <TextField fx:id="model" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+               <TextField fx:id="cost" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+               <TextField fx:id="make" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+               <TextField fx:id="carVIN" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Label prefHeight="17.0" prefWidth="139.0" text="CAR INFORMATION" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label prefHeight="17.0" prefWidth="139.0" text="OWNER" GridPane.columnIndex="1" />
+            <Button fx:id="addNewCar" mnemonicParsing="false" onAction="#addNewCarBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Button fx:id="addNewOwner" mnemonicParsing="false" onAction="#addNewOwnerBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" GridPane.columnIndex="1" GridPane.rowIndex="4" />
            </children>
        </GridPane>
-       <Button fx:id="addNew" layoutX="248.0" layoutY="646.0" mnemonicParsing="false" onAction="#addNewBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" />
-       <Button fx:id="update" layoutX="928.0" layoutY="582.0" mnemonicParsing="false" onAction="#updateBtn" text="Load Information" />
+       <Button fx:id="loadInformation" layoutX="928.0" layoutY="582.0" mnemonicParsing="false" onAction="#loadInformationBtn" text="Load Information" />
        <TableView fx:id="displayArea" layoutX="540.0" prefHeight="560.0" prefWidth="583.0">
            <columns>
                <TableColumn fx:id="repairIDColumn" prefWidth="61.0" text="Repair ID" />
@@ -95,7 +102,7 @@
                <TableColumn fx:id="costColumn" prefWidth="75.0" text="Cost ($)" />
            </columns>
        </TableView>
-       <TextArea fx:id="description" layoutX="14.0" layoutY="440.0" prefHeight="168.0" prefWidth="511.0" />
+       <TextArea fx:id="description" layoutX="14.0" layoutY="518.0" prefHeight="89.0" prefWidth="511.0" />
        <Button fx:id="findByDate" layoutX="1008.0" layoutY="646.0" mnemonicParsing="false" onAction="#findByDateBtn" text="Find by date" />
        <Label layoutX="588.0" layoutY="650.0" text="Between" />
        <Label layoutX="804.0" layoutY="650.0" text="and" />
@@ -113,8 +120,12 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="save" layoutX="403.0" layoutY="646.0" mnemonicParsing="false" onAction="#saveUpdate" prefHeight="25.0" prefWidth="89.0" text="Save update" />
        <Button fx:id="findByCarID" layoutX="804.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByCarIDBtn" text="Find by car ID" />
        <Button fx:id="findByOwner" layoutX="611.0" layoutY="582.0" mnemonicParsing="false" onAction="#findByOwnerIDBtn" text="Find by owner ID" />
+         <Label layoutX="31.0" layoutY="496.0" text="Description" />
+      <Line endX="100.0" startX="-100.0" />
+      <Line endX="100.0" startX="-100.0" />
+       <Button fx:id="addNewJob" layoutX="91.0" layoutY="617.0" mnemonicParsing="false" onAction="#addNewJobBtn" prefHeight="25.0" prefWidth="95.0" text="Add New" />
+      <Button fx:id="update" alignment="CENTER" contentDisplay="CENTER" layoutX="388.0" layoutY="617.0" mnemonicParsing="false" onAction="#updateBtn" prefHeight="25.0" prefWidth="89.0" text="Save update" textFill="#4c7fd7" />
    </children>
 </Pane>
