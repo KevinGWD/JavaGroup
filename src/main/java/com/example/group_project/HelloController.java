@@ -116,7 +116,6 @@ public class HelloController {
     }    
     public void addNewCarBtn(ActionEvent actionEvent) throws SQLException {
         try {
-            addNewOwner.setDisable(true);
             DBUtil.insertCar(parseInt(carID.getText()), make.getText(),
                     model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
                     type.getValue());
@@ -185,7 +184,8 @@ public class HelloController {
     }
 
     public void findByDateBtn(ActionEvent actionEvent) throws SQLException {
-        String sql = "SELECT * FROM REPAIR WHERE S_DATE BETWEEN '" + startDate.getValue() + "' AND '" + endDate.getValue() + "'";
+        String sql = "SELECT * FROM REPAIR WHERE S_DATE BETWEEN '" + String.valueOf(startDate.getValue().format(DateTimeFormatter.ofPattern("dd-MMM-yy"))) + "' AND '"
+                + String.valueOf(endDate.getValue().format(DateTimeFormatter.ofPattern("dd-MMM-yy"))) + "'";
         fillingTable(sql);
     }
 
