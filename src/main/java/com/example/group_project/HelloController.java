@@ -81,12 +81,7 @@ public class HelloController {
     private Button update;
     @FXML
     private Button delete;
-    @FXML
-    private Button addNewCar;
-    @FXML
-    private Button addNewJob;
 
-    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yy");
 
     public void makeType() {  //making the ComboBox menu
 
@@ -98,6 +93,7 @@ public class HelloController {
     
     public void addNewJobBtn(ActionEvent actionEvent) throws SQLException {
         try {
+            System.out.println("clicked add job");
             DBUtil.insertJob(parseInt(ownerID.getText()),  parseInt(carID.getText()),
                     String.valueOf(date.getValue().format(DateTimeFormatter.ofPattern("dd-MMM-yy"))),
                     description.getText(), parseInt(cost.getText()));
@@ -116,6 +112,7 @@ public class HelloController {
     }    
     public void addNewCarBtn(ActionEvent actionEvent) throws SQLException {
         try {
+            System.out.println("clicked  car");
             DBUtil.insertCar(parseInt(carID.getText()), make.getText(),
                     model.getText(), parseInt(carVIN.getText()), parseInt(builtYear.getText()),
                     type.getValue());
@@ -131,6 +128,8 @@ public class HelloController {
 
     public void addNewOwnerBtn(ActionEvent actionEvent) throws SQLException {
         try {
+            System.out.println("clicked owner ");
+
             DBUtil.insertOwner(parseInt(ownerID.getText()), name.getText(),
                     address.getText(), phone.getText(),
                     email.getText());
@@ -272,17 +271,4 @@ public class HelloController {
         cost.setText("");
     }
 
-
-
-    public void saveCar(ActionEvent actionEvent) {
-    }
-
-    public void saveOwner(ActionEvent actionEvent) {
-    }
-
-    public void saveJob(ActionEvent actionEvent) {
-    }
-
-    public void saveUpdateBtn(ActionEvent actionEvent) {
-    }
 }

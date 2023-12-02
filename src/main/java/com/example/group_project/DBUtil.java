@@ -59,7 +59,6 @@ public class DBUtil {//connect to database with JDBC api
     public static void update(int ownerID, String name, String address, String phone, String email, int carID, String make,
                               String model, int carVIN, int builtYear, String type, String date, String description,
                               int cost) throws SQLException {
-        System.out.println(date);
         dbConnect();
         String sql = "UPDATE OWNER SET NAME='"+name+"', ADDRESS='"+address+"', PHONE='"+phone+"', EMAIL='"+email+"' WHERE OWNERID="+ownerID;
         statement.executeUpdate(sql);
@@ -74,6 +73,7 @@ public class DBUtil {//connect to database with JDBC api
         dbDisConnect();
     }
 
+    @org.jetbrains.annotations.NotNull
     public static ResultSet query(String sql) throws SQLException {
         CachedRowSet crs= RowSetProvider.newFactory().createCachedRowSet();
         dbConnect();
@@ -91,12 +91,4 @@ public class DBUtil {//connect to database with JDBC api
         dbDisConnect();
     }
 
-
-//    public static void main(String[] args) throws SQLException {
-//        DBUtil.dbConnect();
-//        insert(34, "Tom", "45 Blvd", "4755893849", "tom@email.com", 453, "Audi",
-//                "Q7", 897545,2023, "SUV", "14-02-25", "replace tyre",
-//        899);
-//        DBUtil.dbDisConnect();
-//   }
 }
